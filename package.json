@@ -1,16 +1,19 @@
 {
   "name": "renewal-navigator",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 127.0.0.1 --port 4173",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "qa": "npm run typecheck && npm run test && npm run build"
+    "qa": "npm run typecheck && npm run test && npm run build",
+    "pack:submission": "bash scripts/pack_submission.sh",
+    "deploy:vercel": "bash scripts/deploy_vercel.sh"
   },
   "dependencies": {
     "react": "^19.1.0",
