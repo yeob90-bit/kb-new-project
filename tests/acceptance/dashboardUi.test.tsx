@@ -98,7 +98,7 @@ describe("Acceptance — Dashboard UI", () => {
     expect(screen.getByTestId("queue-table")).toHaveTextContent("L0021");
 
     await user.click(screen.getByTestId("tab-relationships"));
-    expect(screen.getByTestId("relationship-panel")).toHaveTextContent(
+    expect(screen.getByTestId("relationship-graph")).toHaveTextContent(
       "실제 가족 또는 특수관계 여부를 확정하지 않습니다",
     );
   });

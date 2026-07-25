@@ -24,6 +24,7 @@ import {
   resolveExceptionLevel,
   resolvePriorityBand,
 } from "./scoring";
+import { buildRecommendedActions } from "./recommendation";
 
 /**
  * Reference Engine 결과 조립:
@@ -64,7 +65,7 @@ export function assembleLoanAnalysisResult(
 
   const exceptionLevel = resolveExceptionLevel(remarks);
 
-  return {
+  const partial = {
     loan,
     maturityBucket,
     isInActiveWindow,
@@ -76,7 +77,11 @@ export function assembleLoanAnalysisResult(
     exceptionLevel,
     scoreBreakdown,
     remarks,
-    recommendedActions: [],
+  };
+
+  return {
+    ...partial,
+    recommendedActions: buildRecommendedActions(partial),
   };
 }
 

@@ -212,13 +212,14 @@ export function LoanDetailDrawer({
 
           <section>
             <h3>6. 권장 Action</h3>
-            {result.remarks.length === 0 ? (
+            {result.recommendedActions.length === 0 ? (
               <p className="muted">권장 Action 없음</p>
             ) : (
-              <ul className="remark-list">
-                {result.remarks.map((remark) => (
-                  <li key={`action-${remark.remarkKey}`}>
-                    {remark.recommendedAction}
+              <ul className="remark-list" data-testid="drawer-actions">
+                {result.recommendedActions.map((action) => (
+                  <li key={action.actionId}>
+                    <strong>{action.title}</strong>
+                    <p className="muted">{action.reason}</p>
                   </li>
                 ))}
               </ul>

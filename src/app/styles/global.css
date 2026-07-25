@@ -514,8 +514,151 @@ h1 {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .btn {
-    transition: none;
+.relationship-svg {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 12px auto;
+  background: #fbfdfc;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.relationship-edge {
+  stroke: #98a2b3;
+  stroke-width: 2;
+}
+
+.relationship-edge.is-highlight {
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+
+.relationship-edge-label {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.relationship-node circle {
+  fill: var(--surface);
+  stroke: var(--accent);
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.relationship-node.is-emphasis circle {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+
+.relationship-node .node-name {
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--ink);
+  pointer-events: none;
+}
+
+.relationship-node .node-id {
+  font-size: 10px;
+  fill: var(--muted);
+  pointer-events: none;
+}
+
+.action-opinion,
+.showcase-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+  margin-top: 16px;
+}
+
+.showcase-section h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+
+.compare-grid,
+.opinion-grid,
+.command-board {
+  display: grid;
+  gap: 12px;
+}
+
+.compare-grid,
+.opinion-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.command-board {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.command-board ul,
+.opinion-grid ul,
+.pipeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pipeline li {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.board-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: #fbfdfc;
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.focus-action {
+  background: linear-gradient(160deg, #0f6b3d, #14814a);
+  color: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.focus-action .muted {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.linkish {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .command-board,
+  .compare-grid,
+  .opinion-grid {
+    grid-template-columns: 1fr;
   }
 }

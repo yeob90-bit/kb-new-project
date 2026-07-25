@@ -15,3 +15,5 @@ export * from "./entities/loan/lib/schedule";
 export * from "./entities/loan/lib/scoring";
 export * from "./entities/loan/lib/assembleAnalysis";
 export * from "./entities/loan/lib/runAnalysis";
+export * from "./entities/loan/lib/recommendation";
+export * from "./entities/loan/lib/relationshipGraph";

@@ -11,8 +11,10 @@ import {
 } from "../../widgets/dashboard-filters/DashboardFilters";
 import { AnalysisTabs } from "../../widgets/analysis-tabs/AnalysisTabs";
 import { ActiveQueueTable } from "../../widgets/active-queue/ActiveQueueTable";
+import { RelationshipGraph } from "../../widgets/relationship-network/RelationshipGraph";
+import { ActionOpinion } from "../../widgets/action-opinion/ActionOpinion";
 import { LoanDetailDrawer } from "../../widgets/loan-detail-drawer/LoanDetailDrawer";
-import { RelationshipPanel } from "../../widgets/relationship-network/RelationshipPanel";
+import { Link } from "react-router-dom";
 
 function matchesSearch(result: LoanAnalysisResult, search: string): boolean {
   if (!search.trim()) {
@@ -134,6 +136,9 @@ export function DashboardPage() {
           >
             초기화
           </button>
+          <Link className="btn btn--ghost" to="/showcase">
+            Showcase
+          </Link>
         </div>
       </header>
 
@@ -175,7 +180,20 @@ export function DashboardPage() {
           )}
 
           {tab === "relationships" ? (
-            <RelationshipPanel results={run.results} onSelect={handleSelect} />
+            <>
+              <RelationshipGraph
+                results={run.results}
+                onSelect={handleSelect}
+              />
+              <div className="showcase-section">
+                <h2>권장 Action · 종합의견</h2>
+                <ActionOpinion
+                  run={run}
+                  focusLoanId={selectedLoanId}
+                  onSelect={handleSelect}
+                />
+              </div>
+            </>
           ) : (
             <ActiveQueueTable
               rows={visibleRows}
