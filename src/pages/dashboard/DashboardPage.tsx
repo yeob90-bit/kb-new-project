@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { MaturityBucket, PriorityBand } from "../../enum/index";
 import type { AnalysisRunResult, LoanAnalysisResult } from "../../models/index";
 import { loadSampleAnalysis } from "../../features/sample-load/loadSampleAnalysis";
+import { downloadAnalysisXlsx } from "../../features/excel-export/index";
 import { sortActiveQueue } from "../../shared/lib/dashboardMetrics";
 import { formatDate } from "../../shared/lib/labels";
 import { KpiBoard } from "../../widgets/kpi-board/KpiBoard";
@@ -101,6 +102,13 @@ export function DashboardPage() {
     setDrawerOpen(false);
   };
 
+  const handleExport = () => {
+    if (!run) {
+      return;
+    }
+    downloadAnalysisXlsx(run);
+  };
+
   const handleReset = () => {
     setRun(null);
     setSelectedLoanId(null);
@@ -127,6 +135,15 @@ export function DashboardPage() {
             data-testid="load-sample"
           >
             샘플 데이터 분석
+          </button>
+          <button
+            type="button"
+            className="btn btn--ghost"
+            onClick={handleExport}
+            disabled={!run}
+            data-testid="export-xlsx"
+          >
+            Excel Export
           </button>
           <button
             type="button"
