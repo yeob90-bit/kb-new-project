@@ -1,6 +1,6 @@
 /**
  * 공개 배럴
- * R04~R08 / Schedule / UI / Excel Parser 미포함
+ * UI / Excel Parser 미포함
  */
 
 export * from "./enum/index";
@@ -11,3 +11,7 @@ export * from "./entities/loan/lib/validation/index";
 export * from "./entities/loan/lib/maturityBucket";
 export * from "./entities/loan/lib/anniversary";
 export * from "./entities/loan/lib/rules/index";
+export * from "./entities/loan/lib/schedule";
+export * from "./entities/loan/lib/scoring";
+export * from "./entities/loan/lib/assembleAnalysis";
+export * from "./entities/loan/lib/runAnalysis";
