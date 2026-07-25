@@ -41,9 +41,11 @@ describe("Acceptance — Dashboard Excel Export UI", () => {
 
     await user.click(screen.getByTestId("export-xlsx"));
 
-    expect(createObjectURL).toHaveBeenCalled();
-    expect(clickSpy).toHaveBeenCalled();
-    expect(revokeObjectURL).toHaveBeenCalledWith("blob:mock-export");
+    await vi.waitFor(() => {
+      expect(createObjectURL).toHaveBeenCalled();
+      expect(clickSpy).toHaveBeenCalled();
+      expect(revokeObjectURL).toHaveBeenCalledWith("blob:mock-export");
+    });
 
     vi.restoreAllMocks();
     vi.unstubAllGlobals();

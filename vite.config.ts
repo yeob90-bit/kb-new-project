@@ -12,6 +12,15 @@ export default defineConfig({
       "@": path.join(rootDir, "src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          xlsx: ["xlsx"],
+        },
+      },
+    },
+  },
   test: {
     globals: false,
     environment: "node",

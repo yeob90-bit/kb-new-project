@@ -20,14 +20,20 @@ export function AnalysisTabs({ activeTab, onChange, counts }: AnalysisTabsProps)
         <button
           key={tab}
           type="button"
+          id={`tab-btn-${tab}`}
           role="tab"
           aria-selected={activeTab === tab}
+          aria-controls={`tab-panel-${tab}`}
+          tabIndex={activeTab === tab ? 0 : -1}
           className={activeTab === tab ? "tab is-active" : "tab"}
           onClick={() => onChange(tab)}
           data-testid={`tab-${tab}`}
         >
           {TAB_LABELS[tab]}
-          <span className="tab__count">{counts[tab]}</span>
+          <span className="tab__count" aria-hidden="true">
+            {counts[tab]}
+          </span>
+          <span className="sr-only">{counts[tab]}건</span>
         </button>
       ))}
     </div>

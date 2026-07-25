@@ -106,7 +106,7 @@ export function DashboardPage() {
     if (!run) {
       return;
     }
-    downloadAnalysisXlsx(run);
+    void downloadAnalysisXlsx(run);
   };
 
   const handleReset = () => {
@@ -196,29 +196,36 @@ export function DashboardPage() {
             />
           )}
 
-          {tab === "relationships" ? (
-            <>
-              <RelationshipGraph
-                results={run.results}
-                onSelect={handleSelect}
-              />
-              <div className="showcase-section">
-                <h2>권장 Action · 종합의견</h2>
-                <ActionOpinion
-                  run={run}
-                  focusLoanId={selectedLoanId}
+          <div
+            id={`tab-panel-${tab}`}
+            role="tabpanel"
+            aria-labelledby={`tab-btn-${tab}`}
+            data-testid={`tab-panel-${tab}`}
+          >
+            {tab === "relationships" ? (
+              <>
+                <RelationshipGraph
+                  results={run.results}
                   onSelect={handleSelect}
                 />
-              </div>
-            </>
-          ) : (
-            <ActiveQueueTable
-              rows={visibleRows}
-              selectedLoanId={selectedLoanId}
-              onSelect={handleSelect}
-              showScoreBand={tab === "active"}
-            />
-          )}
+                <div className="showcase-section">
+                  <h2>권장 Action · 종합의견</h2>
+                  <ActionOpinion
+                    run={run}
+                    focusLoanId={selectedLoanId}
+                    onSelect={handleSelect}
+                  />
+                </div>
+              </>
+            ) : (
+              <ActiveQueueTable
+                rows={visibleRows}
+                selectedLoanId={selectedLoanId}
+                onSelect={handleSelect}
+                showScoreBand={tab === "active"}
+              />
+            )}
+          </div>
         </>
       )}
 

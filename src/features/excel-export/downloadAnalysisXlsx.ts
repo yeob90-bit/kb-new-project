@@ -1,15 +1,17 @@
-import * as XLSX from "xlsx";
 import type { AnalysisRunResult } from "../../models/index";
-import {
-  buildAnalysisWorkbook,
-  buildExportFileName,
-} from "./buildAnalysisWorkbook";
 
 /**
- * 신규 xlsx 다운로드.
+ * 신규 xlsx 다운로드 (xlsx는 동적 import — 초기 번들 분리).
  * URL.createObjectURL 사용 시 직후 revoke (PRD §7.4).
  */
-export function downloadAnalysisXlsx(run: AnalysisRunResult): string {
+export async function downloadAnalysisXlsx(
+  run: AnalysisRunResult,
+): Promise<string> {
+  const XLSX = await import("xlsx");
+  const { buildAnalysisWorkbook, buildExportFileName } = await import(
+    "./buildAnalysisWorkbook"
+  );
+
   const workbook = buildAnalysisWorkbook(run);
   const fileName = buildExportFileName(run.referenceDate);
   const buffer = XLSX.write(workbook, {
@@ -37,7 +39,11 @@ export function downloadAnalysisXlsx(run: AnalysisRunResult): string {
   return fileName;
 }
 
-export function workbookToArrayBuffer(run: AnalysisRunResult): ArrayBuffer {
+export async function workbookToArrayBuffer(
+  run: AnalysisRunResult,
+): Promise<ArrayBuffer> {
+  const XLSX = await import("xlsx");
+  const { buildAnalysisWorkbook } = await import("./buildAnalysisWorkbook");
   const workbook = buildAnalysisWorkbook(run);
   return XLSX.write(workbook, {
     bookType: "xlsx",

@@ -402,7 +402,7 @@ export function ShowcasePage() {
                     <li>새로고침 시 소멸</li>
                   </ol>
                   <p className="notice">
-                    서버·DB·localStorage 없이 동작하며, Rule Registry로 R09 등
+                    서버·DB·영속 저장 없이 동작하며, Rule Registry로 R09 등
                     확장이 가능합니다.
                   </p>
                 </article>

@@ -47,6 +47,78 @@ a {
   color: inherit;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 100;
+  background: var(--ink);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.app-topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: min(1280px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 14px 0 0;
+}
+
+.app-topnav__brand {
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.app-topnav__nav {
+  display: flex;
+  gap: 12px;
+}
+
+.app-topnav__nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.app-topnav__nav a:hover,
+.app-topnav__nav a:focus-visible {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 3px solid #84caff;
+  outline-offset: 2px;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
 .page {
   width: min(1280px, calc(100% - 32px));
   margin: 0 auto;
@@ -236,6 +308,46 @@ h1 {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.queue-cards--mobile {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 10px;
+}
+
+.queue-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  min-height: 44px;
+}
+
+.queue-card.is-selected {
+  border-color: var(--accent);
+  background: #f3faf6;
+}
+
+.queue-card__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.queue-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
 }
 
 .data-table {
@@ -508,11 +620,26 @@ h1 {
   .detail-grid {
     grid-template-columns: 1fr;
   }
+
+  .table-wrap--desktop {
+    display: none;
+  }
+
+  .queue-cards--mobile {
+    display: grid;
+  }
 }
 
 @media (max-width: 640px) {
   .kpi-grid {
     grid-template-columns: 1fr;
+  }
+
+  .btn,
+  .tab,
+  .filters__field input,
+  .filters__field select {
+    min-height: 44px;
   }
 }
 
