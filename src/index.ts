@@ -9,4 +9,5 @@ export * from "./models/index";
 export * from "./types/index";
 export * from "./entities/loan/lib/validation/index";
 export * from "./entities/loan/lib/maturityBucket";
+export * from "./entities/loan/lib/anniversary";
 export * from "./entities/loan/lib/rules/index";
