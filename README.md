@@ -13,7 +13,7 @@ RAW 엑셀(또는 샘플 Fixture) → V01~V05 검증 → R01~R08 + S01 → Activ
 | 기준 문서 | `docs/PRD_v2.1_Final_*.md` · `Architecture.md` · `docs/SUBMISSION.md` |
 | Fixture | `fixture_rule_valid_33` · `fixture_boundary_invalid` · `fixture_showcase` |
 | 스택 | Vite · React 19 · TypeScript (strict) · Vitest · React Router · SheetJS |
-| 배포 | Vercel (`vercel.json` SPA rewrite) |
+| 배포 | **https://renewal-navigator.vercel.app** · GitHub `yeob90-bit/kb-new-project` |
 
 ---
 
@@ -47,15 +47,21 @@ npm run preview      # 프로덕션 미리보기 :4173
 
 ## Vercel 배포
 
+**Live Demo:** [https://renewal-navigator.vercel.app](https://renewal-navigator.vercel.app)
+
+| 경로 | URL |
+|---|---|
+| Dashboard | https://renewal-navigator.vercel.app/dashboard |
+| Showcase (3분 시연) | https://renewal-navigator.vercel.app/showcase |
+
+재배포:
+
 ```bash
-npx vercel login          # 토큰 만료 시 필수
-npx vercel --prod --yes   # Production URL 출력
+bash scripts/run_vercel_deploy.sh
 ```
 
 - Framework: Vite · Output: `dist` · SPA: 모든 경로 → `index.html`
-- 시연 진입: `{URL}/showcase`
-
-상세·체크리스트: [`docs/SUBMISSION.md`](docs/SUBMISSION.md)
+- 상세: [`docs/SUBMISSION.md`](docs/SUBMISSION.md)
 
 ---
 

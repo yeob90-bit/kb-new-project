@@ -7,25 +7,24 @@
 | 버전 | 1.0.0 |
 | 라이선스 | MIT (`LICENSE`) |
 | 검증 | Reference Engine 전수 패리티 차이 0 · `npm run qa` PASS |
+| GitHub | https://github.com/yeob90-bit/kb-new-project |
+| Live Demo | **https://renewal-navigator.vercel.app** |
 
 ---
 
 ## 데모 URL (Vercel)
 
-1. 터미널에서 로그인 후 배포:
+| 용도 | URL |
+|---|---|
+| Production | https://renewal-navigator.vercel.app |
+| Dashboard | https://renewal-navigator.vercel.app/dashboard |
+| Showcase (3분 시연) | https://renewal-navigator.vercel.app/showcase |
+
+재배포:
 
 ```bash
-npx vercel login
-npx vercel --prod --yes
+bash scripts/run_vercel_deploy.sh
 ```
-
-2. 배포 완료 URL을 아래에 기입한다.
-
-- Production URL: _(배포 후 기입)_
-- Showcase: `{URL}/showcase`
-- Dashboard: `{URL}/dashboard`
-
-> 현재 로컬 CLI 토큰이 만료되어(`vercel login` 필요) 자동 배포는 보류됨. `vercel.json`·최종 `dist/` 빌드는 준비 완료.
 
 ---
 
@@ -62,6 +61,7 @@ npm run preview   # http://127.0.0.1:4173
 - [x] ScreenShot 4종
 - [x] Acceptance + Reference 패리티 (74 tests)
 - [x] `vercel.json` (SPA rewrite)
-- [ ] Vercel Production URL (`vercel login` 후 배포)
+- [x] Vercel Production URL — https://renewal-navigator.vercel.app
+- [x] GitHub — https://github.com/yeob90-bit/kb-new-project
 
 제출 zip: `npm run pack:submission` → `submission/RenewalNavigator_공모전제출본_YYYYMMDD.zip`
