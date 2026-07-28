@@ -6,3 +6,4 @@ dist/
 submission/*.zip
 
 submission/
+.env*

@@ -2,17 +2,21 @@ import { REFERENCE_DATES } from "../../constants/index";
 import { parseLocalDate } from "../../entities/loan/lib/maturityBucket";
 import { runAnalysis } from "../../entities/loan/lib/runAnalysis";
 import type { AnalysisRunResult } from "../../models/index";
-import fixtureRuleValid33 from "../../shared/fixtures/fixture_rule_valid_33.json";
+import fixtureExtensionDemo from "../../shared/fixtures/fixture_extension_demo.json";
 
 type RawRow = Record<string, unknown>;
 
-/** Dashboard 샘플 로드 — fixture_rule_valid_33 + 기준일 2026-08-03 */
+/**
+ * Dashboard 샘플 로드 —
+ * `연장데이터_예시수정.xlsx` RAW원본 기반 fixture (실명·실계좌 형태 데모).
+ * Acceptance 검증용 fixture_rule_valid_33 은 별도 유지.
+ */
 export function loadSampleAnalysis(
   referenceDate: Date = parseLocalDate(REFERENCE_DATES.RULE_VALID),
 ): AnalysisRunResult {
-  return runAnalysis(fixtureRuleValid33 as RawRow[], referenceDate, {
+  return runAnalysis(fixtureExtensionDemo as RawRow[], referenceDate, {
     hasPolicyFundColumn: true,
-    sourceFileName: "fixture_rule_valid_33.json",
-    runId: "sample-rule-valid-33",
+    sourceFileName: "연장데이터_예시수정.xlsx",
+    runId: "sample-extension-demo",
   });
 }

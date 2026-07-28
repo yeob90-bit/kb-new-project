@@ -35,7 +35,7 @@ describe("Acceptance — QA Accessibility / Responsive UI", () => {
     expect(screen.getByTestId("queue-cards")).toBeInTheDocument();
     expect(screen.getByTestId("queue-table")).toBeInTheDocument();
 
-    await user.click(screen.getByTestId("queue-row-L0025"));
+    await user.click(screen.getByTestId("queue-row-371101-04-123480"));
     expect(screen.getByTestId("loan-drawer")).toBeInTheDocument();
     expect(screen.getByTestId("loan-drawer")).toHaveTextContent("P1 즉시처리");
     expect(screen.getByTestId("loan-drawer")).toHaveTextContent("없음");

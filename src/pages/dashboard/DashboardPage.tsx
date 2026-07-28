@@ -1,7 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { MaturityBucket, PriorityBand } from "../../enum/index";
 import type { AnalysisRunResult, LoanAnalysisResult } from "../../models/index";
 import { loadSampleAnalysis } from "../../features/sample-load/loadSampleAnalysis";
+import {
+  ExcelParseError,
+  loadAnalysisFromExcelFile,
+} from "../../features/excel-upload/index";
 import { downloadAnalysisXlsx } from "../../features/excel-export/index";
 import { sortActiveQueue } from "../../shared/lib/dashboardMetrics";
 import { formatDate } from "../../shared/lib/labels";
@@ -15,7 +20,6 @@ import { ActiveQueueTable } from "../../widgets/active-queue/ActiveQueueTable";
 import { RelationshipGraph } from "../../widgets/relationship-network/RelationshipGraph";
 import { ActionOpinion } from "../../widgets/action-opinion/ActionOpinion";
 import { LoanDetailDrawer } from "../../widgets/loan-detail-drawer/LoanDetailDrawer";
-import { Link } from "react-router-dom";
 
 function matchesSearch(result: LoanAnalysisResult, search: string): boolean {
   if (!search.trim()) {
@@ -35,6 +39,9 @@ export function DashboardPage() {
   const [bandFilter, setBandFilter] = useState<PriorityBand | "ALL">("ALL");
   const [selectedLoanId, setSelectedLoanId] = useState<string | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const selectedResult = useMemo(() => {
     if (!run || !selectedLoanId) {
@@ -87,19 +94,52 @@ export function DashboardPage() {
     return rows.filter((row) => matchesSearch(row, search));
   }, [run, tab, bandFilter, search]);
 
-  const handleSelect = (loanId: string) => {
-    setSelectedLoanId(loanId);
-    setDrawerOpen(true);
-  };
-
-  const handleLoadSample = () => {
-    const next = loadSampleAnalysis();
+  const applyRun = (next: AnalysisRunResult) => {
     setRun(next);
     setTab("active");
     setSearch("");
     setBandFilter("ALL");
     setSelectedLoanId(null);
     setDrawerOpen(false);
+    setUploadError(null);
+  };
+
+  const handleSelect = (loanId: string) => {
+    setSelectedLoanId(loanId);
+    setDrawerOpen(true);
+  };
+
+  const handleLoadSample = () => {
+    applyRun(loadSampleAnalysis());
+  };
+
+  const handlePickFile = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) {
+      return;
+    }
+
+    setUploading(true);
+    setUploadError(null);
+    try {
+      const next = await loadAnalysisFromExcelFile(file);
+      applyRun(next);
+    } catch (error) {
+      const message =
+        error instanceof ExcelParseError
+          ? error.message
+          : "엑셀 파일을 읽지 못했습니다. 형식을 확인해 주세요.";
+      setUploadError(message);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleExport = () => {
@@ -115,6 +155,7 @@ export function DashboardPage() {
     setDrawerOpen(false);
     setSearch("");
     setBandFilter("ALL");
+    setUploadError(null);
   };
 
   return (
@@ -128,9 +169,28 @@ export function DashboardPage() {
           </p>
         </div>
         <div className="header-actions">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            className="visually-hidden"
+            data-testid="upload-xlsx-input"
+            onChange={(event) => {
+              void handleFileChange(event);
+            }}
+          />
           <button
             type="button"
             className="btn btn--primary"
+            onClick={handlePickFile}
+            disabled={uploading}
+            data-testid="upload-xlsx"
+          >
+            {uploading ? "분석 중…" : "엑셀 업로드"}
+          </button>
+          <button
+            type="button"
+            className="btn btn--ghost"
             onClick={handleLoadSample}
             data-testid="load-sample"
           >
@@ -159,17 +219,34 @@ export function DashboardPage() {
         </div>
       </header>
 
+      {uploadError ? (
+        <p className="upload-error" role="alert" data-testid="upload-error">
+          {uploadError}
+        </p>
+      ) : null}
+
       {!run ? (
         <div className="empty-state" data-testid="empty-state">
-          <p>파일을 업로드하거나 샘플 데이터로 먼저 확인해보세요.</p>
-          <button
-            type="button"
-            className="btn btn--primary"
-            onClick={handleLoadSample}
-            data-testid="load-sample-empty"
-          >
-            샘플 데이터로 시작
-          </button>
+          <p>엑셀을 업로드하거나 샘플 데이터로 먼저 확인해보세요.</p>
+          <div className="empty-actions">
+            <button
+              type="button"
+              className="btn btn--primary"
+              onClick={handlePickFile}
+              disabled={uploading}
+              data-testid="upload-xlsx-empty"
+            >
+              엑셀 업로드
+            </button>
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={handleLoadSample}
+              data-testid="load-sample-empty"
+            >
+              샘플 데이터로 시작
+            </button>
+          </div>
         </div>
       ) : (
         <>
@@ -181,11 +258,7 @@ export function DashboardPage() {
 
           <KpiBoard run={run} />
 
-          <AnalysisTabs
-            activeTab={tab}
-            onChange={setTab}
-            counts={tabCounts}
-          />
+          <AnalysisTabs activeTab={tab} onChange={setTab} counts={tabCounts} />
 
           {tab !== "relationships" && (
             <DashboardFilters

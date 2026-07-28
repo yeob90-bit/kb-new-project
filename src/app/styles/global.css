@@ -59,6 +59,18 @@ a {
   border: 0;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: absolute;
   left: 12px;
@@ -198,6 +210,23 @@ h1 {
   padding: 48px 24px;
   text-align: center;
   box-shadow: var(--shadow);
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.upload-error {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, #c0392b 12%, white);
+  color: #8b1e16;
+  border: 1px solid color-mix(in srgb, #c0392b 30%, white);
 }
 
 .meta-bar {
