@@ -51,19 +51,19 @@ function buildSummarySheet(run: AnalysisRunResult): Record<string, string | numb
     { 항목: "실질Remark", 값: summary.realRemarkCount },
     { 항목: "최고점", 값: summary.topScore ?? "" },
     {
-      항목: "P1즉시처리",
+      항목: "우선순위최상",
       값: summary.priorityBandCounts[PriorityBand.P1Immediate] ?? 0,
     },
     {
-      항목: "P2우선처리",
+      항목: "우선순위상",
       값: summary.priorityBandCounts[PriorityBand.P2Priority] ?? 0,
     },
     {
-      항목: "P3사전준비",
+      항목: "우선순위중",
       값: summary.priorityBandCounts[PriorityBand.P3Prepare] ?? 0,
     },
     {
-      항목: "P4일상",
+      항목: "우선순위하",
       값: summary.priorityBandCounts[PriorityBand.P4Routine] ?? 0,
     },
     {

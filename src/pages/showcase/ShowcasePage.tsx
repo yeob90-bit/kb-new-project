@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { PriorityBand } from "../../enum/index";
+import {
+  PRIORITY_BAND_SCORE,
+  PRIORITY_SCORE_CAP,
+} from "../../constants/index";
 import { loadShowcaseAnalysis } from "../../features/showcase-load/loadShowcaseAnalysis";
 import {
   getShowcaseStepIntervalMs,
@@ -209,7 +213,7 @@ export function ShowcasePage() {
           data-testid="showcase-s4"
           ref={setSectionRef("s4")}
         >
-          <h2>Live Demo + KPI</h2>
+          <h2>Live Demo</h2>
           {!showResults ? (
             <div className="empty-state" data-testid="showcase-empty">
               <p>
@@ -222,7 +226,7 @@ export function ShowcasePage() {
               <p className="muted" data-testid="demo-status">
                 {phase === "running"
                   ? `단계 진행 중: ${SHOWCASE_PIPELINE_STEPS[Math.max(stepIndex, 0)]?.label}`
-                  : "분석 완료 — 공모전 시연 가능"}
+                  : "분석 완료 — 쇼케이스 시연 가능"}
               </p>
               <div className="kpi-grid">
                 <article className="kpi-card">
@@ -236,7 +240,7 @@ export function ShowcasePage() {
                   </p>
                 </article>
                 <article className="kpi-card kpi-card--accent">
-                  <p className="kpi-card__label">P1</p>
+                  <p className="kpi-card__label">우선순위 최상</p>
                   <p className="kpi-card__value">
                     <CountUpValue
                       value={
@@ -300,7 +304,7 @@ export function ShowcasePage() {
                   >
                     <h3>
                       {PRIORITY_BAND_LABEL[column.band]}
-                      <span className="tab__count">{column.items.length}</span>
+                      <span className="tab__count">{column.items.length}건</span>
                     </h3>
                     <ul>
                       {column.items.map((item, index) => (
@@ -363,10 +367,20 @@ export function ShowcasePage() {
               data-testid="showcase-s7"
               ref={setSectionRef("s7")}
             >
-              <h2>Today&apos;s Action + 종합의견</h2>
+              <div className="showcase-section__head">
+                <h2>Today&apos;s Action + 종합의견</h2>
+                <p
+                  className="score-legend"
+                  data-testid="score-legend"
+                >
+                  Score 0~{PRIORITY_SCORE_CAP.TOTAL}점
+                  <span aria-hidden="true"> · </span>
+                  {PRIORITY_BAND_SCORE.P1_MIN}점 이상 긴급검토
+                </p>
+              </div>
               {p1Loan ? (
                 <p className="muted" data-testid="p1-spotlight">
-                  P1 포커스: {p1Loan.loan.borrowerName} ·{" "}
+                  우선순위 최상 포커스: {p1Loan.loan.borrowerName} ·{" "}
                   {formatDDay(p1Loan.dDay)} ·{" "}
                   {p1Loan.remarks.map((remark) => remark.title).join(" / ")}
                 </p>

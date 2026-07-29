@@ -739,6 +739,27 @@ h1 {
   font-size: 20px;
 }
 
+.showcase-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.showcase-section__head h2 {
+  margin: 0;
+}
+
+.score-legend {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: right;
+}
+
 .compare-grid,
 .opinion-grid,
 .command-board {
@@ -818,6 +839,14 @@ h1 {
   .compare-grid,
   .opinion-grid {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-section__head {
+    flex-wrap: wrap;
+  }
+
+  .score-legend {
+    text-align: left;
   }
 }
 

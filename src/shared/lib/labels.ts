@@ -6,10 +6,10 @@ import {
 } from "../../enum/index";
 
 export const PRIORITY_BAND_LABEL: Record<PriorityBand, string> = {
-  [PriorityBand.P1Immediate]: "P1 즉시처리",
-  [PriorityBand.P2Priority]: "P2 우선처리",
-  [PriorityBand.P3Prepare]: "P3 사전준비",
-  [PriorityBand.P4Routine]: "P4 일상",
+  [PriorityBand.P1Immediate]: "우선순위 최상",
+  [PriorityBand.P2Priority]: "우선순위 상",
+  [PriorityBand.P3Prepare]: "우선순위 중",
+  [PriorityBand.P4Routine]: "우선순위 하",
 };
 
 export const PRIORITY_BAND_ORDER: PriorityBand[] = [

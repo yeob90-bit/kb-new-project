@@ -11,7 +11,7 @@ import { ShowcasePage } from "../../src/pages/showcase/ShowcasePage";
 import { PriorityBand } from "../../src/enum/index";
 import { SHOWCASE_STORY_SECTIONS } from "../../src/features/showcase-load/showcaseStory";
 
-describe("Acceptance — Showcase Demo Story (공모전 시연)", () => {
+describe("Acceptance — Showcase Demo Story (쇼케이스 시연)", () => {
   it("S1~S8 스토리 섹션과 Story Rail이 존재한다", () => {
     render(
       <MemoryRouter>
@@ -42,7 +42,7 @@ describe("Acceptance — Showcase Demo Story (공모전 시연)", () => {
       "분석 완료 — 시연 가능",
     );
     expect(screen.getByTestId("demo-status")).toHaveTextContent(
-      "공모전 시연 가능",
+      "쇼케이스 시연 가능",
     );
 
     expect(screen.getByTestId("showcase-kpi-active")).toHaveAttribute(
@@ -78,6 +78,12 @@ describe("Acceptance — Showcase Demo Story (공모전 시연)", () => {
     expect(within(graph).getByTestId("graph-node-S03")).toBeInTheDocument();
 
     expect(screen.getByTestId("p1-spotlight")).toHaveTextContent("한빛정밀");
+    expect(screen.getByTestId("score-legend")).toHaveTextContent(
+      "Score 0~100점",
+    );
+    expect(screen.getByTestId("score-legend")).toHaveTextContent(
+      "75점 이상 긴급검토",
+    );
     expect(screen.getByTestId("focus-action")).toHaveTextContent("한빛정밀");
     expect(screen.getByTestId("action-opinion")).toHaveTextContent(
       "본 의견은 Rule 기반 업무지원 결과이며",
